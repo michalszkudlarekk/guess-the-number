@@ -1,43 +1,37 @@
-﻿using static System.Net.Mime.MediaTypeNames;
-
-internal class Program
+﻿internal class Program
 {
-
-
-
-
-
-    static void ColorMessage(ConsoleColor color, string input)
+    private static void ColorMessage(ConsoleColor color, string input)
     {
-        Console.ForegroundColor = color;    
+        Console.ForegroundColor = color;
         Console.WriteLine(input);
         Console.ResetColor();
     }
+
     private static void Main(string[] args)
     {
         Random random = new Random();
         bool playGameAgain = true;
-        int min = 1;
-        int max = 2;
-        int guess;
+        int min = 8;
+        int max = 69;
+        int guess = 0;
+        int guesses = 0;
         int numberToGuess;
-        int guesses;
-        string choice;
+  
 
         while (playGameAgain)
         {
-            guess = 0;
-            guesses = 0;
-            choice = string.Empty;
-            numberToGuess = random.Next(min, max + 1);
+            numberToGuess = random.Next(min, max);
 
             while (guess != numberToGuess)
             {
-              
                 Console.WriteLine("Zgadnij liczbe od " + min + " do " + max + ":");
-                guess = int.Parse(s: Console.ReadLine());
+                guess = int.Parse(Console.ReadLine());
                 Console.WriteLine("Twoj wybor: " + guess);
-                if (guess > numberToGuess)
+                if (guess == numberToGuess)
+                {
+                    break;
+                }
+                else if (guess > numberToGuess)
                 {
                     Console.WriteLine(guess + " jest za duza!");
                 }
@@ -45,24 +39,23 @@ internal class Program
                 {
                     Console.WriteLine(guess + " jest za mala!");
                 }
-                else if (guess == numberToGuess)
-                {
-                    break;
-                }
+
                 guesses++;
             }
 
-            ColorMessage(ConsoleColor.Green, "Twoja liczba to " + numberToGuess + " wygrales ;)");      
+            ColorMessage(ConsoleColor.Green, "Twoja liczba to " + numberToGuess + " wygrales ;)");
             Console.WriteLine("Ilosc prob: " + guesses);
             Console.WriteLine("Czy chcesz zgrac ponownie? (T - tak, N - nie)");
-            choice = Console.ReadLine();
-            if (choice == "T")
+
+     
+            switch (Console.ReadLine())
             {
-                playGameAgain = true;
-            }
-            else if (choice == "N")
-            {
-                playGameAgain = false;
+                case "T":
+                    playGameAgain = true;
+                    break;
+                case "N":
+                    playGameAgain = false;
+                    break;
             }
         }
     }
