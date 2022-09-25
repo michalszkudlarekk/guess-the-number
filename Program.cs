@@ -1,4 +1,4 @@
-﻿namespace Zgadnij_liczbe
+﻿namespace GuessTheNumber
 {
     internal class Program
     {
