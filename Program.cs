@@ -1,61 +1,70 @@
-﻿internal class Program
+﻿namespace Zgadnij_liczbe
 {
-    private static void ColorMessage(ConsoleColor color, string input)
+    internal class Program
     {
-        Console.ForegroundColor = color;
-        Console.WriteLine(input);
-        Console.ResetColor();
-    }
 
-    private static void Main(string[] args)
-    {
-        Random random = new Random();
-        bool playGameAgain = true;
-        int min = 8;
-        int max = 69;
-        int guess = 0;
-        int guesses = 0;
-        int numberToGuess;
-  
 
-        while (playGameAgain)
+        private static void ColorMessage(ConsoleColor color, string input)
         {
-            numberToGuess = random.Next(min, max);
+            Console.ForegroundColor = color;
+            Console.WriteLine(input);
+            Console.ResetColor();
+        }
 
-            while (guess != numberToGuess)
+
+        private static void Main(string[] args)
+        {
+            Random random = new Random();
+            bool playGameAgain = true;
+            int min = 0;
+            int max = 100;
+            int guess = 0;
+            int guesses = 0;
+            int numberToGuess;
+
+
+            while (playGameAgain)
             {
-                Console.WriteLine("Zgadnij liczbe od " + min + " do " + max + ":");
-                guess = int.Parse(Console.ReadLine());
-                Console.WriteLine("Twoj wybor: " + guess);
-                if (guess == numberToGuess)
+                numberToGuess = random.Next(min, max);
+
+                while (guess != numberToGuess)
                 {
-                    break;
-                }
-                else if (guess > numberToGuess)
-                {
-                    Console.WriteLine(guess + " jest za duza!");
-                }
-                else if (guess < numberToGuess)
-                {
-                    Console.WriteLine(guess + " jest za mala!");
+                    ColorMessage(ConsoleColor.DarkCyan, ("Guess the number from " + min + " to " + max + ":"));
+                    guess = int.Parse(Console.ReadLine());
+                    ColorMessage(ConsoleColor.Cyan, ("Your guess: " + guess));
+                    if (guess == numberToGuess)
+                    {
+                        break;
+                    }
+                    else if (guess > numberToGuess)
+                    {
+                        Console.WriteLine(guess + " is too big!");
+                    }
+                    else if (guess < numberToGuess)
+                    {
+                        Console.WriteLine(guess + " is too small!");
+                    }
+
+                    guesses++;
                 }
 
-                guesses++;
-            }
+                ColorMessage(ConsoleColor.Green, "Your number is " + numberToGuess + ", you've won ;)");
+                ColorMessage(ConsoleColor.Magenta, ("Number of tries: " + guesses));
+                ColorMessage(ConsoleColor.Yellow, ("Would you like to play again? (Y - yes, N - no)"));
 
-            ColorMessage(ConsoleColor.Green, "Twoja liczba to " + numberToGuess + " wygrales ;)");
-            Console.WriteLine("Ilosc prob: " + guesses);
-            Console.WriteLine("Czy chcesz zgrac ponownie? (T - tak, N - nie)");
 
-     
-            switch (Console.ReadLine())
-            {
-                case "T":
-                    playGameAgain = true;
-                    break;
-                case "N":
-                    playGameAgain = false;
-                    break;
+                switch (Console.ReadLine())
+                {
+                    case "Y":
+                        playGameAgain = true;
+                        break;
+                    case "N":
+                        playGameAgain = false;
+                        break;
+                    default:
+                        playGameAgain = false;
+                        break;
+                }
             }
         }
     }
